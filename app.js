@@ -22,11 +22,11 @@ function criarIndividuo() {
     for (let i = 0; i < PESOS.length; i++) {
         individuo.push(Math.random() < 0.5 ? 0 : 1); // escolhe aleatoriamente um número entre 0 e 1. se for menor que 0.5 é 0 se for maior é 1
     }
-    console.log(individuo);
+    //console.log(individuo);
     return individuo;
 }
 
-// calcula o peso total de um indivíduo
+// calcula a quantidade total de um indivíduo
 function calcularQtde(individuo) {
     let pesoTotal = 0;
     let qtdeTotal = 0;
@@ -38,16 +38,34 @@ function calcularQtde(individuo) {
         }
     }
     if (pesoTotal > CAPACIDADE_MOCHILA) { return 0; }
+    //console.log(qtdeTotal);
     return qtdeTotal;
 }
 
-// seleção (roleta estocástica de escolha)
-function selecionarIndividuos(populacao) {
-    var valoresFitness = populacao.map(calcularQtde); // aplica calcularQtde pra cada item do array
-    var somaFitness = valoresFitness.reduce((a, b) => a + b, 0); // soma todos os valores do array
+//calcula peso
+function calcularPeso(individuo) {
+    let pesoTotal = 0;
 
-    var probabSelecao = valoresFitness.map((valor) => valor / somaFitness); // calcula probabilidade de ser selecionado pea razão fitness / soma dos fitnesses
-    var selecionados = [];
+    for (let i = 0; i < individuo.length; i++) {
+        if (individuo[i] === 1) {
+            pesoTotal += PESOS[i];
+        }
+    }
+    if (pesoTotal > CAPACIDADE_MOCHILA) { return 0; }
+    //console.log(qtdeTotal);
+    return pesoTotal;
+}
+
+
+// seleção (roleta estocástica de escolha)
+function selecionar(populacao) {
+    let valoresFitness = populacao.map(calcularQtde); // aplica calcularQtde pra cada item do array
+    let somaFitness = valoresFitness.reduce((a, b) => a + b, 0); // soma todos os valores do array
+
+    //console.log(somaFitness);
+
+    let probabSelecao = valoresFitness.map((valor) => valor / somaFitness); // calcula probabilidade de ser selecionado pea razão fitness / soma dos fitnesses
+    let selecionados = [];
     
     for (let i = 0; i < TAMANHO_POPULACAO; i++) {
         let acumulador = 0;
@@ -68,10 +86,10 @@ function selecionarIndividuos(populacao) {
 // cruzamento entre dois indivíduos
 function reproduzir(individuo1, individuo2) {
     if (Math.random() < TAXA_CRUZAMENTO) {
-        var pontoCorte = Math.floor(Math.random() * (individuo1.length - 1)) + 1;
+        let pontoCorte = Math.floor(Math.random() * (individuo1.length - 1)) + 1;
 
-        var filho1 = individuo1.slice(0, pontoCorte).concat(individuo2.slice(pontoCorte));
-        var filho2 = individuo2.slice(0, pontoCorte).concat(individuo1.slice(pontoCorte));
+        let filho1 = individuo1.slice(0, pontoCorte).concat(individuo2.slice(pontoCorte));
+        let filho2 = individuo2.slice(0, pontoCorte).concat(individuo1.slice(pontoCorte));
         return [filho1, filho2];
     } 
     else { return [individuo1, individuo2]; } // senão retorna o que já tava
@@ -83,3 +101,58 @@ function mutar(individuo) {
     individuo[indiceAleatorio] = individuo[indiceAleatorio] === 1 ? 0 : 1; // se o gene escolhido for 1 vira 0 e vice versa
     return individuo;
 }
+
+// main
+function algoritmoGenetico() {
+    let populacao = [];
+    for (let i = 0; i < TAMANHO_POPULACAO; i++) {
+        populacao.push(criarIndividuo());
+    }
+  
+    // começo das gerações
+    for (let geracao = 0; geracao < NUMERO_GERACOES; geracao++) {
+        // seleção
+        const selecionados = selecionar(populacao);
+        //console.log(selecionados);
+        const proximaGeracao = [];
+  
+        while (proximaGeracao.length < TAMANHO_POPULACAO) {
+            const indicePai1 = Math.floor(Math.random() * selecionados.length);
+            const indicePai2 = Math.floor(Math.random() * selecionados.length);
+
+            const pais = [selecionados[indicePai1], selecionados[indicePai2]];
+    
+            // cruzamento de  2 aleatórios
+            const filhos = reproduzir(pais[0], pais[1]);
+    
+            for (let i = 0; i < filhos.length; i++) {
+                // mutação dos filhos gerados no cruzamento
+                if (Math.random() < TAXA_MUTACAO) {
+                    mutar(filhos[i]);
+                }
+
+                proximaGeracao.push(filhos[i]);
+
+                if (proximaGeracao.length >= TAMANHO_POPULACAO) {
+                    break;
+                }
+            }
+        }
+  
+        populacao = proximaGeracao;
+    }
+  
+    const melhoresIndividuos = populacao.map((individuo) => ({
+        individuo,
+        qtdeTotal: calcularQtde(individuo),
+        pesoTotal: calcularPeso(individuo)
+    }));
+    melhoresIndividuos.sort((a, b) => b.qtdeTotal - a.qtdeTotal);
+  
+    console.log('Melhor solução encontrada:');
+    console.log('Indivíduo:', melhoresIndividuos[0].individuo);
+    console.log('Peso da carga:', melhoresIndividuos[0].pesoTotal);
+    console.log('Quantidade de itens:', melhoresIndividuos[0].qtdeTotal);
+}
+
+algoritmoGenetico();
