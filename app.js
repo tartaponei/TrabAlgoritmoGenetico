@@ -8,7 +8,7 @@
 // Constantes do problema
 const PESOS = [2, 3, 4, 5, 8, 9, 10, 0.5, 1, 4.5]; // pesos dos itens em toneladas
 //const VALORES = [3, 4, 5, 6]; // valores dos itens
-const CAPACIDADE_MOCHILA = 18; // capacidade máxima em toneladas do caminhão
+const CAPACIDADE_CAMINHAO = 18; // capacidade máxima em toneladas do caminhão
 
 // Constantes do algoritmo
 const TAMANHO_POPULACAO = 50; // tamanho da população
@@ -37,7 +37,7 @@ function calcularQtde(individuo) {
             qtdeTotal += 1;
         }
     }
-    if (pesoTotal > CAPACIDADE_MOCHILA) { return 0; }
+    if (pesoTotal > CAPACIDADE_CAMINHAO) { return 0; }
     //console.log(qtdeTotal);
     return qtdeTotal;
 }
@@ -51,7 +51,7 @@ function calcularPeso(individuo) {
             pesoTotal += PESOS[i];
         }
     }
-    if (pesoTotal > CAPACIDADE_MOCHILA) { return 0; }
+    if (pesoTotal > CAPACIDADE_CAMINHAO) { return 0; }
     //console.log(qtdeTotal);
     return pesoTotal;
 }
@@ -151,8 +151,8 @@ function algoritmoGenetico() {
   
     console.log('Melhor solução encontrada:');
     console.log('Indivíduo:', melhoresIndividuos[0].individuo);
-    console.log('Peso da carga:', melhoresIndividuos[0].pesoTotal);
-    console.log('Quantidade de itens:', melhoresIndividuos[0].qtdeTotal);
+    console.log('Peso da carga:', melhoresIndividuos[0].pesoTotal, ', da máxima de', CAPACIDADE_CAMINHAO);
+    console.log('Quantidade de itens:', melhoresIndividuos[0].qtdeTotal, ', da máxima de', PESOS.length);
 }
 
 algoritmoGenetico();
