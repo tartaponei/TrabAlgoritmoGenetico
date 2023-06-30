@@ -5,31 +5,33 @@
 // - Fitness é a quantidade; quanto maior, melhor
 // - O resultado é um vetor contendo 0 (índice não incluso no caminhão) ou 1 (índice não incluso no caminhão)
 
-// Constantes do problema
+// constantes do problema
 const PESOS = [2, 3, 4, 5, 8, 9, 10, 0.5, 1, 4.5]; // pesos dos itens em toneladas
 //const VALORES = [3, 4, 5, 6]; // valores dos itens
-const CAPACIDADE_CAMINHAO = 18; // capacidade máxima em toneladas do caminhão
+var CAPACIDADE_CAMINHAO = 18; // capacidade máxima em toneladas do caminhão
 
-// Constantes do algoritmo
-const TAM_POPULACAO = 80; // tamanho da população
+// constantes do algoritmo
+var TAM_POPULACAO = 80; // tamanho da população
 const TAXA_MUTACAO = 0.1; // taxa de mutação
 const TAXA_CRUZAMENTO = 0.7; // taxa de cruzamento
-const NUM_GERACOES = 100; // número de gerações
+var NUM_GERACOES = 100; // número de gerações
 
 function addDadosEntrada() {
-    let valorPesoMax = document.getElementById("valorPesoMax");
+    // let valorPesoMax = document.getElementById("valorPesoMax");
     let valoresPesoItens = document.getElementById("valoresPesoItens");
+    let valorNumItens = document.getElementById("valorNumItens");
 
-    let valorTamPopulacao = document.getElementById("valorTamPopulacao");
-    let valorNumGeracoes = document.getElementById("valorNumGeracoes");
+    // let valorTamPopulacao = document.getElementById("valorTamPopulacao");
+    // let valorNumGeracoes = document.getElementById("valorNumGeracoes");
     let valorTaxaMutacao = document.getElementById("valorTaxaMutacao");
     let valorTaxaCruzamento = document.getElementById("valorTaxaCruzamento");
 
-    valorPesoMax.innerHTML = CAPACIDADE_CAMINHAO;
+    // valorPesoMax.innerHTML = CAPACIDADE_CAMINHAO;
     valoresPesoItens.innerHTML = '[ ' + PESOS + ' ]';
+    valorNumItens.innerHTML = PESOS.length;
 
-    valorTamPopulacao.innerHTML = TAM_POPULACAO;
-    valorNumGeracoes.innerHTML = NUM_GERACOES;
+    // valorTamPopulacao.innerHTML = TAM_POPULACAO;
+    // valorNumGeracoes.innerHTML = NUM_GERACOES;
     valorTaxaMutacao.innerHTML = TAXA_MUTACAO * 100 + '%';
     valorTaxaCruzamento.innerHTML = TAXA_CRUZAMENTO * 100 + '%';
 }
@@ -122,6 +124,15 @@ function mutar(individuo) {
 
 // main
 function algoritmoGenetico() {
+    let valorPesoMax = document.getElementById("valorPesoMax").value;
+    CAPACIDADE_CAMINHAO = valorPesoMax;
+
+    let valorNumGeracoes = document.getElementById("valorNumGeracoes").value;
+    NUM_GERACOES = valorNumGeracoes;
+
+    let valorTamPopulacao = document.getElementById("valorTamPopulacao").value;
+    TAM_POPULACAO = valorTamPopulacao;
+
     let populacao = [];
     for (let i = 0; i < TAM_POPULACAO; i++) {
         populacao.push(criarIndividuo());

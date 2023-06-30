@@ -33,3 +33,7 @@ body {
     margin-top: 20px;
     width: fit-content;
 }
+
+.input {
+    width: 50px;
+}
