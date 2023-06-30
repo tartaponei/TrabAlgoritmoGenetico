@@ -11,13 +11,19 @@ body {
     padding: 30px;
 }
 
+#valoresPesoItens {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .entradas {
     border-right: 2px solid #0000003a;
     margin-right: 10px;
+    padding: 10px;
 }
 
 .algoritmo {
     margin-left: 10px;
+    padding: 10px;
 }
 
 .rodarBtn {

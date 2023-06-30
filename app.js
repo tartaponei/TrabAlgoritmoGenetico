@@ -6,8 +6,9 @@
 // - O resultado é um vetor contendo 0 (índice não incluso no caminhão) ou 1 (índice não incluso no caminhão)
 
 // constantes do problema
-const PESOS = [2, 3, 4, 5, 8, 9, 10, 0.5, 1, 4.5]; // pesos dos itens em toneladas
-//const VALORES = [3, 4, 5, 6]; // valores dos itens
+// são var pq o usuário muda
+var PESOS = []; // pesos dos itens em toneladas
+var QTDE_ITENS = 10;
 var CAPACIDADE_CAMINHAO = 18; // capacidade máxima em toneladas do caminhão
 
 // constantes do algoritmo
@@ -18,8 +19,8 @@ var NUM_GERACOES = 100; // número de gerações
 
 function addDadosEntrada() {
     // let valorPesoMax = document.getElementById("valorPesoMax");
-    let valoresPesoItens = document.getElementById("valoresPesoItens");
-    let valorNumItens = document.getElementById("valorNumItens");
+    // let valoresPesoItens = document.getElementById("valoresPesoItens");
+    // let valorNumItens = document.getElementById("valorNumItens");
 
     // let valorTamPopulacao = document.getElementById("valorTamPopulacao");
     // let valorNumGeracoes = document.getElementById("valorNumGeracoes");
@@ -27,8 +28,8 @@ function addDadosEntrada() {
     // let valorTaxaCruzamento = document.getElementById("valorTaxaCruzamento");
 
     // valorPesoMax.innerHTML = CAPACIDADE_CAMINHAO;
-    valoresPesoItens.innerHTML = '[ ' + PESOS + ' ]';
-    valorNumItens.innerHTML = PESOS.length;
+    // valoresPesoItens.innerHTML = '[ ' + PESOS + ' ]';
+    // valorNumItens.innerHTML = PESOS.length;
 
     // valorTamPopulacao.innerHTML = TAM_POPULACAO;
     // valorNumGeracoes.innerHTML = NUM_GERACOES;
@@ -36,9 +37,25 @@ function addDadosEntrada() {
     // valorTaxaCruzamento.innerHTML = TAXA_CRUZAMENTO * 100;
 }
 
+function criarPesosItens() {
+    PESOS.length = 0;
+
+    let valorNumItens = document.getElementById("valorNumItens").value;
+    QTDE_ITENS = valorNumItens;
+
+    for (let i = 0; i < QTDE_ITENS; i++) {
+        PESOS.push(parseFloat((Math.random() * 15).toFixed(1)));
+    }
+    console.log(PESOS);
+
+    let valoresPesoItens = document.getElementById("valoresPesoItens");
+    valoresPesoItens.innerHTML = '[ ' + PESOS + ' ]';
+}
+
 // cria um indivíduo aleatório
 function criarIndividuo() {
     const individuo = [];
+
     for (let i = 0; i < PESOS.length; i++) {
         individuo.push(Math.random() < 0.5 ? 0 : 1); // escolhe aleatoriamente um número entre 0 e 1. se for menor que 0.5 é 0 se for maior é 1
     }
@@ -193,13 +210,13 @@ function algoritmoGenetico() {
         <p>Indivíduo: [ 
     ` + melhoresIndividuos[0].individuo + ` ]</p>
         <p> Peso total da carga no caminhão:
-    ` + melhoresIndividuos[0].pesoTotal + `t </p>
+    ` + melhoresIndividuos[0].pesoTotal.toFixed(1) + `t </p>
         <p> Quantidade de itens no caminhão:
     ` + melhoresIndividuos[0].qtdeTotal + ` itens </p>`;
   
     console.log('Melhor solução encontrada:');
     console.log('Indivíduo:', melhoresIndividuos[0].individuo);
-    console.log('Peso da carga:', melhoresIndividuos[0].pesoTotal, ', da máxima de', CAPACIDADE_CAMINHAO);
+    console.log('Peso da carga:', melhoresIndividuos[0].pesoTotal.toFixed(1), ', da máxima de', CAPACIDADE_CAMINHAO);
     console.log('Quantidade de itens:', melhoresIndividuos[0].qtdeTotal, ', da máxima de', PESOS.length);
 }
 

@@ -23,8 +23,10 @@
             <h3>Dados sobre as entradas:</h3>
             <!-- <p class="pesoMax">Peso máximo do caminhão: <span id="valorPesoMax"></span>t</p> -->
             <p class="pesoMax">Peso máximo do caminhão: <input class="input" type="number" id="valorPesoMax" value="18"></input> t</p>
-            <p class="numItens">Quantidade de itens: <span id="valorNumItens"></span> itens</p>
-            <p class="pesoItens">Pesos de cada item a ser transportado: <span id="valoresPesoItens"></span> t</p>
+            <!-- <p class="numItens">Quantidade de itens: <span id="valorNumItens"></span> itens</p> -->
+            <p class="numItens">Quantidade de itens: <input class="input" type="number" id="valorNumItens" value="10"></input> itens</p>
+            <p class="pesoItens">Pesos de cada item a ser transportado: <span id="valoresPesoItens">[ ]</span> (em toneladas)</p>
+            <button class="gerarPesosBtn" onclick="criarPesosItens()">Gerar pesos aleatórios</button>
         </div>
         
         <div class="algoritmo">
