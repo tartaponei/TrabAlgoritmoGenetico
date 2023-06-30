@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./app.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <title>Algoritmo Genético</title>
+</head>
+<body onload="addDadosEntrada()">
+    <h1>Trabalho sobre Algoritmo Genético</h1>
+    <h2>Análogo ao Problema da Mochila</h2>
+
+    <h3>Contexto:</h3>
+    <p>Como no problema da mochila, o cenário desse algoritmo é otimizar o transporte de carga numa frota de caminhões. O caminhão tem um valor máximo de carga que pode suportar, e cada item que será transportado tem um peso. O objetivo é transportar o maior número de itens sem ultrapassar o peso máximo suportado. Todos os pesos são medidos em <strong>toneladas</strong>.</p>
+    <p>A resposta é formatada como um vetor de 0 e 1. Os índices que tiverem 1 como valor são os que entrarão no caminhão.</p>
+
+    <div class="dados">
+        <div class="entradas">
+            <h3>Dados sobre as entradas:</h3>
+            <p class="pesoMax">Peso máximo do caminhão: <span id="valorPesoMax"></span>t</p>
+            <p class="pesoItens">Pesos de cada item a ser transportado: <span id="valoresPesoItens"></span> t</p>
+        </div>
+        
+        <div class="algoritmo">
+            <h3>Dados sobre o algoritmo:</h3>
+            <p class="tamPopulacao">Tamanho da população: <span id="valorTamPopulacao"></span></p>
+            <p class="numGeracoes">Peso máximo do caminhão: <span id="valorNumGeracoes"></span>t</p>
+            <p class="taxaMutacao">Taxa de mutação: <span id="valorTaxaMutacao"></span></p>
+            <p class="taxaCruzamento">Taxa de cruzamento: <span id="valorTaxaCruzamento"></span></p>
+        </div>
+    </div>
+    
+    
+    <br>
+
+    <button class="rodarBtn" onclick="algoritmoGenetico()">Rodar o algoritmo</button>
+
+    <div id="resultado"></div>
+
+    <!--
+        Resultado:
+        Melhor indivíduo
+        Peso total da carga do caminhão
+        Quantidade de itens no caminhão
+    -->
+
+</body>
+</html>

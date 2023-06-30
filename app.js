@@ -11,10 +11,28 @@ const PESOS = [2, 3, 4, 5, 8, 9, 10, 0.5, 1, 4.5]; // pesos dos itens em tonelad
 const CAPACIDADE_CAMINHAO = 18; // capacidade máxima em toneladas do caminhão
 
 // Constantes do algoritmo
-const TAMANHO_POPULACAO = 50; // tamanho da população
+const TAM_POPULACAO = 80; // tamanho da população
 const TAXA_MUTACAO = 0.1; // taxa de mutação
 const TAXA_CRUZAMENTO = 0.7; // taxa de cruzamento
-const NUMERO_GERACOES = 100; // número de gerações
+const NUM_GERACOES = 100; // número de gerações
+
+function addDadosEntrada() {
+    let valorPesoMax = document.getElementById("valorPesoMax");
+    let valoresPesoItens = document.getElementById("valoresPesoItens");
+
+    let valorTamPopulacao = document.getElementById("valorTamPopulacao");
+    let valorNumGeracoes = document.getElementById("valorNumGeracoes");
+    let valorTaxaMutacao = document.getElementById("valorTaxaMutacao");
+    let valorTaxaCruzamento = document.getElementById("valorTaxaCruzamento");
+
+    valorPesoMax.innerHTML = CAPACIDADE_CAMINHAO;
+    valoresPesoItens.innerHTML = '[ ' + PESOS + ' ]';
+
+    valorTamPopulacao.innerHTML = TAM_POPULACAO;
+    valorNumGeracoes.innerHTML = NUM_GERACOES;
+    valorTaxaMutacao.innerHTML = TAXA_MUTACAO * 100 + '%';
+    valorTaxaCruzamento.innerHTML = TAXA_CRUZAMENTO * 100 + '%';
+}
 
 // cria um indivíduo aleatório
 function criarIndividuo() {
@@ -67,7 +85,7 @@ function selecionar(populacao) {
     let probabSelecao = valoresFitness.map((valor) => valor / somaFitness); // calcula probabilidade de ser selecionado pea razão fitness / soma dos fitnesses
     let selecionados = [];
     
-    for (let i = 0; i < TAMANHO_POPULACAO; i++) {
+    for (let i = 0; i < TAM_POPULACAO; i++) {
         let acumulador = 0;
         const marcadorRoleta = Math.random(); // número aleatório pra ficar oindicador da roleta e selecionar alguém
 
@@ -105,18 +123,18 @@ function mutar(individuo) {
 // main
 function algoritmoGenetico() {
     let populacao = [];
-    for (let i = 0; i < TAMANHO_POPULACAO; i++) {
+    for (let i = 0; i < TAM_POPULACAO; i++) {
         populacao.push(criarIndividuo());
     }
   
     // começo das gerações
-    for (let geracao = 0; geracao < NUMERO_GERACOES; geracao++) {
+    for (let geracao = 0; geracao < NUM_GERACOES; geracao++) {
         // seleção
         const selecionados = selecionar(populacao);
         //console.log(selecionados);
         const proximaGeracao = [];
   
-        while (proximaGeracao.length < TAMANHO_POPULACAO) {
+        while (proximaGeracao.length < TAM_POPULACAO) {
             const indicePai1 = Math.floor(Math.random() * selecionados.length);
             const indicePai2 = Math.floor(Math.random() * selecionados.length);
 
@@ -133,7 +151,7 @@ function algoritmoGenetico() {
 
                 proximaGeracao.push(filhos[i]);
 
-                if (proximaGeracao.length >= TAMANHO_POPULACAO) {
+                if (proximaGeracao.length >= TAM_POPULACAO) {
                     break;
                 }
             }
@@ -148,6 +166,19 @@ function algoritmoGenetico() {
         pesoTotal: calcularPeso(individuo)
     }));
     melhoresIndividuos.sort((a, b) => b.qtdeTotal - a.qtdeTotal);
+
+    let resultado = document.getElementById("resultado");
+    
+    resultado.style.display = 'block';
+
+    resultado.innerHTML = `
+        <h2>Melhor solução encontrada:</h2>
+        <p>Indivíduo: [ 
+    ` + melhoresIndividuos[0].individuo + ` ]</p>
+        <p> Peso total da carga no caminhão:
+    ` + melhoresIndividuos[0].pesoTotal + `t </p>
+        <p> Quantidade de itens no caminhão:
+    ` + melhoresIndividuos[0].qtdeTotal + ` itens </p>`;
   
     console.log('Melhor solução encontrada:');
     console.log('Indivíduo:', melhoresIndividuos[0].individuo);
@@ -155,4 +186,4 @@ function algoritmoGenetico() {
     console.log('Quantidade de itens:', melhoresIndividuos[0].qtdeTotal, ', da máxima de', PESOS.length);
 }
 
-algoritmoGenetico();
+//algoritmoGenetico();

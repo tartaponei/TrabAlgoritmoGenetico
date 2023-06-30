@@ -1,0 +1,35 @@
+.dados {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+:root {
+    font-family: sans-serif;
+}
+
+body {
+    padding: 30px;
+}
+
+.entradas {
+    border-right: 2px solid #0000003a;
+    margin-right: 10px;
+}
+
+.algoritmo {
+    margin-left: 10px;
+}
+
+.rodarBtn {
+    font-size: 18px;
+    padding: 5px 10px;
+}
+
+#resultado {
+    /* border: 6px solid #669c66; */
+    background-color: #a6c0a6;
+    padding: 10px 20px;
+    display: none;
+    margin-top: 20px;
+    width: fit-content;
+}
