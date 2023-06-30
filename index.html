@@ -11,10 +11,12 @@
 <body onload="addDadosEntrada()">
     <h1>Trabalho sobre Algoritmo Genético</h1>
     <h2>Análogo ao Problema da Mochila</h2>
+    <h5>Sarah Ellen de Oliveira Borrete - 20210013251</h5>
 
     <h3>Contexto:</h3>
     <p>Como no problema da mochila, o cenário desse algoritmo é otimizar o transporte de carga numa frota de caminhões. O caminhão tem um valor máximo de carga que pode suportar, e cada item que será transportado tem um peso. O objetivo é transportar o maior número de itens sem ultrapassar o peso máximo suportado. Todos os pesos são medidos em <strong>toneladas</strong>.</p>
     <p>A resposta é formatada como um vetor de 0 e 1. Os índices que tiverem 1 como valor são os que entrarão no caminhão.</p>
+    <p>Os dados já colocados nos inputs são os padrões estipulados por mim. Você pode mudar e ver se muda alguma coisa, se quiser.</p>
 
     <div class="dados">
         <div class="entradas">
@@ -31,8 +33,10 @@
             <p class="tamPopulacao">Tamanho da população: <input class="input" type="number" id="valorTamPopulacao" value="80"></input></p>
             <!-- <p class="numGeracoes">Número de gerações: <span id="valorNumGeracoes"></span></p> -->
             <p class="numGeracoes">Número de gerações: <input class = "input" type="number" id="valorNumGeracoes" value="100"></input></p>
-            <p class="taxaMutacao">Taxa de mutação: <span id="valorTaxaMutacao"></span></p>
-            <p class="taxaCruzamento">Taxa de cruzamento: <span id="valorTaxaCruzamento"></span></p>
+            <!-- <p class="taxaMutacao">Taxa de mutação: <span id="valorTaxaMutacao"></span></p> -->
+            <p class="taxaMutacao">Taxa de mutação: <input class="input" type="number" id="valorTaxaMutacao" value="10"></input> %</p>
+            <!-- <p class="taxaCruzamento">Taxa de cruzamento: <span id="valorTaxaCruzamento"></span></p> -->
+            <p class="taxaCruzamento">Taxa de cruzamento: <input class="input" type="number" id="valorTaxaCruzamento" value="70"></input> %</p>
         </div>
     </div>
     
